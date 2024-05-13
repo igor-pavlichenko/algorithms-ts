@@ -1,6 +1,6 @@
 export default function bs_list(haystack: number[], needle: number): boolean {
     let low = 0; // start is inclusive
-    let high = haystack.length; // end is exclusive
+    let high = haystack.length; // end is exclusive, meaning we will go up to, but not including it
 
     do {
         const mid = Math.floor(low + (high - low) / 2); // need to know this formula
