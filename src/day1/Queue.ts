@@ -2,6 +2,15 @@ type Node<T> = {
     value: T;
     next?: Node<T>;
 };
+/**
+ * A queue is a linear data structure that stores the elements sequentially.
+ * It uses the FIFO (First In First Out) approach for accessing elements.
+ *
+ * Search complexity:   O(n)
+ * Insert complexity:   O(1)
+ * Delete complexity:   O(1)
+ * Space complexity:    O(n)
+ */
 export default class Queue<T> {
     private head?: Node<T>;
     private tail?: Node<T>;
