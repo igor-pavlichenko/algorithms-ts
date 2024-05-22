@@ -9,9 +9,29 @@ export default class ArrayList<T> {
         this.array = Array(this.capacity);
     }
 
+    private doubleCapacity() {
+        this.capacity *= 2;
+        const newArray = Array(this.capacity);
+        for (let i = 0; i < this.array.length; i++) {
+            // copy items to new array
+            newArray[i] = this.array[i];
+        }
+        // swap arrays
+        this.array = newArray;
+    }
+
     prepend(item: T): void {}
     insertAt(item: T, idx: number): void {}
-    append(item: T): void {}
+
+    append(item: T): void {
+        if (this.length === this.capacity) {
+            this.doubleCapacity();
+        }
+
+        this.array[this.length - 1] = item;
+        this.length++;
+    }
+
     remove(item: T): T | undefined {
         let indexFound: number | undefined;
         for (let i = 0; i < this.length; i++) {
