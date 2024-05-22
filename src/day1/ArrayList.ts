@@ -1,3 +1,12 @@
+/**
+ * complexities:
+ * prepend: O(n)
+ * insertAt: O(n)
+ * append: O(1)
+ * remove: O(n)
+ * get: O(1)
+ * removeAt: O(n)
+ */
 export default class ArrayList<T> {
     public length: number;
     private capacity: number;
@@ -102,10 +111,19 @@ export default class ArrayList<T> {
         let formattedString = '';
         for (let i = 0; i < this.length; i++) {
             formattedString += `[${this.array[i]}]`;
-            if (i + 1 < this.length) {
+            if (i + 1 < this.capacity) {
                 formattedString += ' - ';
             }
         }
+
+        // print empty indexes
+        for (let j = this.length - 1; j < this.capacity; j++) {
+            formattedString += `[ ]`;
+            if (j + 1 < this.capacity) {
+                formattedString += ' - ';
+            }
+        }
+
         return formattedString;
     }
 }
