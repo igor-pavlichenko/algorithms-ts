@@ -20,8 +20,29 @@ export default class ArrayList<T> {
         this.array = newArray;
     }
 
-    prepend(item: T): void {}
-    insertAt(item: T, idx: number): void {}
+    prepend(item: T) {
+        // prepending is the same as inserting at index 0
+        return this.insertAt(item, 0);
+    }
+
+    insertAt(item: T, idx: number) {
+        if (idx + 1 > this.capacity) return undefined; // this should've been an error
+
+        if (this.length === this.capacity) {
+            this.doubleCapacity();
+        }
+
+        let i = this.length - 1;
+        while (i > idx) {
+            // keep shifting elements to the end until we reach the provided index
+            this.array[i + 1] = this.array[i];
+            i--;
+        }
+        // we reached that index, and all elements have been shifted
+        // it's safe to insert the item here
+        this.array[idx] = item;
+        return;
+    }
 
     append(item: T): void {
         if (this.length === this.capacity) {
