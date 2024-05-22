@@ -26,21 +26,29 @@ export default class ArrayList<T> {
     }
 
     insertAt(item: T, idx: number) {
-        if (idx + 1 > this.capacity) return undefined; // this should've been an error
-
         if (this.length === this.capacity) {
             this.doubleCapacity();
         }
+        if (idx + 2 > this.capacity) return undefined; // this should've been an error
 
-        let i = this.length - 1;
+        // first item insert at index 0
+        if (this.length === 0 && idx === 0) {
+            this.array[idx] = item;
+            this.length++;
+            return;
+        }
+
+        // otherwise we need to shift elements to make space for new item at that index
+        let i = this.length;
         while (i > idx) {
             // keep shifting elements to the end until we reach the provided index
-            this.array[i + 1] = this.array[i];
+            this.array[i] = this.array[i - 1];
             i--;
         }
         // we reached that index, and all elements have been shifted
         // it's safe to insert the item here
         this.array[idx] = item;
+        this.length++;
         return;
     }
 
@@ -90,7 +98,7 @@ export default class ArrayList<T> {
         return item;
     }
 
-    toString(): string {
+    toString() {
         let formattedString = '';
         for (let i = 0; i < this.length; i++) {
             formattedString += `[${this.array[i]}]`;
@@ -101,4 +109,3 @@ export default class ArrayList<T> {
         return formattedString;
     }
 }
-
