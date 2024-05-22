@@ -28,7 +28,7 @@ export default class ArrayList<T> {
             this.doubleCapacity();
         }
 
-        this.array[this.length - 1] = item;
+        this.array[this.length] = item;
         this.length++;
     }
 
