@@ -88,7 +88,7 @@ export default class ArrayList<T> {
 
     // great access by index
     get(idx: number): T | undefined {
-        if (idx > this.length) return undefined;
+        if (idx >= this.length) return undefined;
         return this.array[idx];
     }
 
