@@ -24,5 +24,5 @@ test('array-list toString', function () {
     list.append(1);
     list.append(1);
     list.append(2);
-    expect(list.toString()).toEqual('[1] - [1] - [1] - [2] - [ ] - [ ] - [ ]');
+    expect(list.toString()).toEqual('[1] - [1] - [1] - [2] - [ ] - [ ]');
 });

@@ -117,7 +117,7 @@ export default class ArrayList<T> {
         }
 
         // print empty indexes
-        for (let j = this.length - 1; j < this.capacity; j++) {
+        for (let j = this.length; j < this.capacity; j++) {
             formattedString += `[ ]`;
             if (j + 1 < this.capacity) {
                 formattedString += ' - ';
