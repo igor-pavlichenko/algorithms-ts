@@ -38,7 +38,7 @@ export default class ArrayList<T> {
         if (this.length === this.capacity) {
             this.doubleCapacity();
         }
-        if (idx + 1 > this.capacity) return undefined; // this should've been an error
+        if (idx > this.length) return undefined; // this should've been an error
 
         // first item insert at index 0
         if (this.length === 0 && idx === 0) {
