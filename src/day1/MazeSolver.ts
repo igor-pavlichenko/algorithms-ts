@@ -18,13 +18,34 @@
  *
  * remember that the entrance to the recursive function is often not the one we are going to recurse in
  *
+ * when to use recursion: when it's not easy to do with simple for loops
+ * especially when there is a branching factor, like in the coordinates case,
+ * there are 4 directions we can go at any point
+ *
  * @returns list of points from the start to the end
  */
 export default function solve(maze: string[], wall: string, start: Point, end: Point): Point[] {
-    return [];
+    const seen: boolean[][] = [];
+    const path: Point[] = [];
+
+    // fill the seen array with false values
+    for (let i = 0; i < maze.length; i++) {
+        seen.push(new Array(maze[0].length).fill(false));
+    }
+
+    walk(maze, wall, start, end, seen, path);
+
+    return path;
 }
 
-function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boolean[][]) {
+function walk(
+    maze: string[],
+    wall: string,
+    curr: Point,
+    end: Point,
+    seen: boolean[][],
+    path: Point[], // we need to keep track of the steps we are taking
+) {
     // 1. Base case
     // off the map
     if (
@@ -45,6 +66,7 @@ function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boole
 
     // it's the end
     if (curr.x === end.x && curr.y === end.y) {
+        path.push(end);
         return true;
     }
 
@@ -54,4 +76,27 @@ function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boole
     if (seen[curr.y][curr.x]) {
         return false;
     }
+
+    // 2. recurse - 3 steps
+    // pre
+    seen[curr.y][curr.x] = true;
+    path.push(curr);
+    // recurse
+    for (let i = 0; i < directions.length; i++) {
+        const [x, y] = directions[i];
+        if (walk(maze, wall, { x: curr.x + x, y: curr.y + y }, end, seen, path)) {
+            return true;
+        }
+    }
+
+    // post
+    path.pop();
+    return false; // if we walked everywhere and didn't find an end
 }
+
+const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+];
