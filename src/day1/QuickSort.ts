@@ -27,7 +27,14 @@ export default function quick_sort(arr: number[]): void {
  * @param hi abbreviation of HIGH, unusual thing - both LOW & HIGH are inclusive
  */
 function qs(arr: number[], lo: number, hi: number) {
-	
+	if (lo >= hi) {
+		return;
+	}
+
+	const pivotIdx = partition(arr, lo, hi);
+
+	qs(arr, lo, pivotIdx - 1);
+	qs(arr, pivotIdx + 1, hi);
 }
 
 function partition(arr: number[], lo: number, hi: number): number {
