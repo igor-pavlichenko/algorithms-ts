@@ -51,7 +51,7 @@ function partition(arr: number[], lo: number, hi: number): number {
 			arr[idx] = tmp;
 		}
 	}
-	// by now we moved everything thet is <= pivot to beginning
+	// by now we moved everything that is <= pivot to beginning
 	// now we need to move our pivot to idx position
 	// so that we hold true to the rule of
 	// "everything to the left of pivot needs to be <= pivot and everything right needs to be > pivot"
