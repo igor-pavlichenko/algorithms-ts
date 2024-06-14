@@ -34,7 +34,7 @@ export default class DoublyLinkedList<T> {
         if (idx === 0) return this.prepend(item);
         if (idx === this.length) return this.append(item);
 
-        if (idx > this.length) throw new Error('index is way out of bounds');
+        if (idx < 0 || idx > this.length) throw new Error('index out of bounds');
         const nodeAtIdx = this.getNodeAt(idx);
         if (!nodeAtIdx.prev)
             throw new Error('this will never happen since we already handled the idx=0 case');
@@ -52,6 +52,7 @@ export default class DoublyLinkedList<T> {
         this.length++;
     }
 
+    // complexity: O(n)
     private getNodeAt(index: number) {
         if (!this.head) throw new Error('head is undefined so the list is empty');
 
@@ -91,7 +92,7 @@ export default class DoublyLinkedList<T> {
             // redundant/equivalent checks to make typescript happy
             throw new Error('list is empty');
         }
-        if (idx >= this.length) throw new Error('idx out of bounds');
+        if (idx < 0 || idx >= this.length) throw new Error('idx out of bounds');
 
         if (idx === 0) return this.head.value;
         if (idx === this.length - 1) return this.tail.value;
