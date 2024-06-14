@@ -74,6 +74,7 @@ export default class DoublyLinkedList<T> {
             // means list is empty
             this.head = newNode;
             this.tail = newNode;
+            return;
         }
         newNode.prev = this.tail;
         this.tail.next = newNode;
@@ -84,11 +85,34 @@ export default class DoublyLinkedList<T> {
         return undefined;
     }
 
+    // complexity: O(n)
     get(idx: number): T | undefined {
-        return undefined;
+        if (this.length === 0 || !this.head || !this.tail) {
+            // redundant/equivalent checks to make typescript happy
+            throw new Error('list is empty');
+        }
+        if (idx >= this.length) throw new Error('idx out of bounds');
+
+        if (idx === 0) return this.head.value;
+        if (idx === this.length - 1) return this.tail.value;
+        return this.getNodeAt(idx).value;
     }
 
     removeAt(idx: number): T | undefined {
         return undefined;
+    }
+
+    // complexity O(n)
+    toString() {
+        let str = '';
+        let curr = this.head;
+        for (let i = 0; i < this.length && curr; i++) {
+            str += `[${curr.value}]`;
+            if (curr.next) {
+                str += ` - `;
+            }
+            curr = curr.next;
+        }
+        return str;
     }
 }
