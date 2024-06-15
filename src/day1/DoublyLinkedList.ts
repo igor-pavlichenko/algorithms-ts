@@ -40,7 +40,6 @@ export default class DoublyLinkedList<T> {
         if (idx === 0) return this.prepend(item);
         if (idx === this.length) return this.append(item);
 
-        if (idx < 0 || idx > this.length) throw new Error(ListErrors.INDEX_OUT_OF_BOUNDS);
         const nodeAtIdx = this.getNodeAt(idx);
         if (!nodeAtIdx.prev) throw new Error(ListErrors.EDGE_CASE);
 
@@ -59,7 +58,14 @@ export default class DoublyLinkedList<T> {
 
     // complexity: O(n)
     private getNodeAt(index: number) {
-        if (!this.head) throw new Error(ListErrors.LIST_EMPTY);
+        if (this.length === 0 || !this.head || !this.tail) {
+            // redundant/equivalent checks to make typescript happy
+            throw new Error(ListErrors.LIST_EMPTY);
+        }
+        if (index < 0 || index >= this.length) throw new Error(ListErrors.INDEX_OUT_OF_BOUNDS);
+
+        if (index === 0) return this.head;
+        if (index === this.length - 1) return this.tail;
 
         let i = 0;
         let node = this.head;
@@ -122,19 +128,34 @@ export default class DoublyLinkedList<T> {
 
     // complexity: O(n)
     get(idx: number): T | undefined {
-        if (this.length === 0 || !this.head || !this.tail) {
-            // redundant/equivalent checks to make typescript happy
-            throw new Error(ListErrors.LIST_EMPTY);
-        }
-        if (idx < 0 || idx >= this.length) throw new Error(ListErrors.INDEX_OUT_OF_BOUNDS);
-
-        if (idx === 0) return this.head.value;
-        if (idx === this.length - 1) return this.tail.value;
         return this.getNodeAt(idx).value;
     }
 
+    // complexity: O(n)
     removeAt(idx: number): T | undefined {
-        return undefined;
+        let curr = this.getNodeAt(idx);
+
+        if (!curr) {
+            // this will never happen but we need to make typescript happy
+            throw new Error(ListErrors.ITEM_NOT_FOUND);
+        }
+
+        this.length--;
+        if (this.length === 0) {
+            this.tail = this.head = undefined;
+        }
+
+        const left = curr.prev;
+        const right = curr.next;
+
+        if (curr === this.head) this.head = right;
+        if (curr === this.tail) this.tail = left;
+
+        if (left) left.next = right;
+        if (right) right.prev = left;
+        curr.next = curr.prev = undefined;
+
+        return curr.value;
     }
 
     // complexity O(n)

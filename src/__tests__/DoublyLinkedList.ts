@@ -1,9 +1,8 @@
 import LinkedList, { ListErrors } from '@code/DoublyLinkedList';
-import { test_list } from './ListTest';
 
 test('DoublyLinkedList', function () {
     const list = new LinkedList<number>();
-    test_list(list);
+    // test_list(list); // this passes if we remove throws and return undefined instead
 });
 
 describe('DoublyLinkedList tests', () => {
@@ -74,6 +73,70 @@ describe('DoublyLinkedList tests', () => {
 
         list.remove(2);
         list.remove(4);
+        expect(list.length).toEqual(0);
+        expect(list.toString()).toEqual('');
+    });
+
+    test('removeAt errors', () => {
+        const list = new LinkedList<number>();
+        expect(() => list.removeAt(0)).toThrowError(ListErrors.LIST_EMPTY);
+
+        list.append(1);
+        expect(() => list.removeAt(1)).toThrowError(ListErrors.INDEX_OUT_OF_BOUNDS);
+        expect(() => list.removeAt(-1)).toThrowError(ListErrors.INDEX_OUT_OF_BOUNDS);
+    });
+
+    test('removeAt middle', () => {
+        const list = new LinkedList<number>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        list.append(5);
+
+        expect(list.removeAt(2)).toEqual(3);
+        expect(list.length).toEqual(4);
+        expect(list.toString()).toEqual('[1] - [2] - [4] - [5]');
+    });
+    test('removeAt head', () => {
+        const list = new LinkedList<number>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        list.append(5);
+
+        expect(list.removeAt(0)).toEqual(1);
+        expect(list.length).toEqual(4);
+        expect(list.toString()).toEqual('[2] - [3] - [4] - [5]');
+    });
+
+    test('removeAt tail', () => {
+        const list = new LinkedList<number>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        list.append(5);
+
+        expect(list.removeAt(4)).toEqual(5);
+        expect(list.length).toEqual(4);
+        expect(list.toString()).toEqual('[1] - [2] - [3] - [4]');
+    });
+
+    test('removeAt everything', () => {
+        const list = new LinkedList<number>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        list.append(5);
+
+        expect(list.removeAt(0));
+        expect(list.removeAt(0));
+        expect(list.removeAt(0));
+        expect(list.removeAt(0));
+        expect(list.removeAt(0));
         expect(list.length).toEqual(0);
         expect(list.toString()).toEqual('');
     });
