@@ -15,6 +15,8 @@ Visiting all the nodes of a tree (visiting means doing something with the value 
 
 Is done using recursion.
 
+## Depth first search / traversal
+
 -   visitNode()
 -   recurseLeft()
 -   recurseRight()
