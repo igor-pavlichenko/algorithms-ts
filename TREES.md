@@ -26,3 +26,12 @@ Is done using recursion.
 -   **Traversing pre-order** - Visiting the nodes before visiting the children. Root ends up in the beginning.
 -   **Traversing in-order** - Visiting the nodes after visiting children on one side. Root ends up in the middle.
 -   **Traversing post-order** - Visiting the nodes after visiting children on all sides. Root ends up in the end.
+
+## Breath first search / traversal
+
+No recursion - simple while loop and a queue.
+
+-   instantiate the queue with tree's head in it
+-   dequeue it inside the loop
+-   check the value
+-   enqueue left & right
