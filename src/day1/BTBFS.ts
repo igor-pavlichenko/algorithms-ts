@@ -15,7 +15,7 @@ export default function bfs(head: BinaryNode<number>, needle: number): boolean {
         // keep traversing by enqueueing left & right of the node
         if (left) q.enqueue(left);
         if (right) q.enqueue(right);
-        // by doing this the wile loop will keep going
+        // by doing this the while loop will keep going
     }
 
     // if we get to this point - we have traversed the whole tree
@@ -39,7 +39,7 @@ export function bfs2(head: BinaryNode<number>, needle: number): boolean {
         // keep traversing by enqueueing left & right of the node
         q.enqueue(curr.left);
         q.enqueue(curr.right);
-        // by doing this the wile loop will keep going
+        // by doing this the while loop will keep going
     }
 
     // if we get to this point - we have traversed the whole tree
