@@ -1,3 +1,4 @@
+// complexity depends on height: O(h)
 export default function BSTInsert(node: BinaryNode<number>, value: number) {
     const newNode: BinaryNode<number> = { value, left: null, right: null };
     if (node.value < value) {
