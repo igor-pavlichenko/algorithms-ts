@@ -15,12 +15,12 @@ function dfDelete(node: BinaryNode<number> | null, target: number) {
         node.left = dfDelete(node.left, target);
         return node;
     } else if (target > node.value) {
-        // base case 2 - target < value
+        // base case 3 - target > value
         // so we recurse to the right subtree
         node.right = dfDelete(node.right, target);
         return node;
     } else {
-        // base case 3 - target = value
+        // base case 4 - target = value
 
         // we found the node to be deleted
         // and we know that this code will be run in recursive calls
