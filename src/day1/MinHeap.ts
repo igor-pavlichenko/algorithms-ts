@@ -1,6 +1,6 @@
 export default class MinHeap {
     public length: number;
-    public data: Array<number>;
+    private data: Array<number>;
 
     constructor() {
         this.length = 0;
